@@ -1,0 +1,11 @@
+Package: abremPivotals
+Title:  Linear Rank Regression Models with Pivotal Monte Carlo Methods for Reliability Analysis
+Version: 0.2.8
+Date: 2014-7-27
+Author: Jacob T. Ormerod
+Maintainer: Jacob T. Ormerod <jake@openreliability.org>
+Description: Fast linear regression with optional plotting position selections for Weibull, lognormal, and Gumbel distributions including right censored data.  Implements 3rd parameter optimizations and a fast pivotal Monte Carlo engine for goodness of fit and confidence interval determination. Built to be a reverse depend for package abrem "Abernethy Reliability Methods".  
+License: GPL (>= 3)
+LazyLoad: yes
+Imports: Rcpp (>= 0.11.1), RcppArmadillo (>= 0.4.100.2.1)
+LinkingTo: Rcpp, RcppArmadillo
