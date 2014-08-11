@@ -24,9 +24,11 @@ lslr <- function(x, dist="weibull", npar=2, reg_method="xony")  {
 	if(npar==3) casenum=casenum+2			
 	if(dist=="lnorm") casenum=casenum+4			
 	if(dist=="gumbel") casenum=casenum+8			
+
+    na.omit				
 				
-				
-	resultVec<-.Call("LSLR", x$time, x[,which(where)[1]], limit, casenum , package="abremPivotals")			
+	resultVec<-.Call("LSLR", na.omit(x)$time, na.omit(x)[,which(where)[1]], limit, casenum , package="abremPivotals")	
+        # TODO: check proper usage of na.omit. Not too strict? any row with a NA value in the $time OR in the $event column will be omitted
 				
 	if(casenum < 4) {			
 		if(length(resultVec)==3)  {	
