@@ -8,8 +8,6 @@ getProbabilityPlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Bena
 	fail  <-  length(x)
 	n  <-  fail+length(s)
 	##  create the event vector						
-    # TODO: try replacing "ppp" with "rank" in all of the lower code
-    # if "rank" turns out to be an appropriate name
 	if(!missing(s)) {						
 	## if(length(s)>0)  {						
 		## suspension data has been provided					
@@ -148,7 +146,7 @@ getProbabilityPlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Bena
 	}						
 							
 	outDF<-cbind(prep_df$data,data.frame(ppp),prep_df$adj_rank)						
-	colnames(outDF)<-c("time","rank","adj_rank")	
+	colnames(outDF)<-c("time","ppp","adj_rank")	
 return(outDF)							
 }							
 ## assign the alias							

@@ -1,18 +1,19 @@
 pivotalMC <- function(x, dist="weibull", reg_method="xony", R2, CL, unrel, P1=1.0, P2=1.0, S=10^4, seed=1234, ProgRpt=FALSE)  {	
     # NOTE (Jurgen) I renamed CI to CL, because CL is suited as a name for 
-    # single and double bounded confidence intervals. as confidence interval is for double bounded  interfals
-    # adaptation of original pivotalMC2 to be pin compatible with abrem's x$fit[[i]]$data dataframe in the abrem object:
-    # the dataframe always holds 'time', 'event' and 'rank" columns
+    # single and double bounded confidence intervals. as confidence interval is for double bounded  intervals
+    # adaptation of original pivotalMC2 to be pin compatible with abrem's x$fit[[i]]$data 
+    # dataframe in the abrem object:    # the dataframe always holds 'time', 'event' and 'ppp' columns
 
     if(is.data.frame(x)){
         if(!is.null(x$time) && !is.null(x$event)){
             if(!any(where <- (tolower(names(x)) %in% 
-                c("rank","rank.benard","rank.beta","rank.mean",
-                "rank.km","rank.kaplan-meier","rank.hazen","rank.blom")))){
-                stop(': Argument \"x\" is missing rank columns(s)...')
+                c("ppp","ppp.benard","ppp.beta","ppp.mean",
+                "ppp.km","ppp.kaplan-meier","ppp.hazen","ppp.blom")))){
+                stop(': Argument \"x\" is missing ppp columns(s)...')
                 # Todo: consider NOT supporting all ranking methods;
             }else{
-                if(length(x[,which(where)[1]]) < 3)  {
+#                if(length(x[,which(where)[1]]) < 3)  {
+                if(length(x[,which(where)[1]]) < 2)  {
                     stop("insufficient failure points")
                 }
             }

@@ -5,13 +5,15 @@ lslr <- function(x, dist="weibull", npar=2, reg_method="xony")  {
     if(is.data.frame(x)){
         if(!is.null(x$time)){
             if(!any(where <- (tolower(names(x)) %in% 
-                c("rank","rank.benard","rank.beta","rank.mean",
-                "rank.hazen","rank.km","rank.kaplan-meier","rank.blom")))){
-                stop(': Argument \"x\" is missing rank columns(s)...')
+                c("ppp","ppp.benard","ppp.beta","ppp.mean",
+                "ppp.hazen","ppp.km","ppp.kaplan-meier","ppp.blom")))){
+                stop(': Argument \"x\" is missing ppp columns(s)...')
                 # Todo: consider NOT supporting all ranking methods;
             }else{
-                if(length(x[,which(where)[1]]) < 3){
-                    stop("insufficient failure points")
+#                if(length(x[,which(where)[1]]) < 3){
+                if(length(x[,which(where)[1]]) < 2){
+                    # no reason to not allow a perfect fit between two ppp's
+                    stop("Insufficient failure times")
                 }
             }
         }else{
@@ -29,6 +31,7 @@ lslr <- function(x, dist="weibull", npar=2, reg_method="xony")  {
 				
 	resultVec<-.Call("LSLR", na.omit(x)$time, na.omit(x)[,which(where)[1]], limit, casenum , package="abremPivotals")	
         # TODO: check proper usage of na.omit. Not too strict? any row with a NA value in the $time OR in the $event column will be omitted
+        # (jurgen) there was a case where lslr() failed with a mention of "object 'where' not found -> look into this
 				
 	if(casenum < 4) {			
 		if(length(resultVec)==3)  {	
@@ -36,7 +39,7 @@ lslr <- function(x, dist="weibull", npar=2, reg_method="xony")  {
 			outVec<-c(Eta=resultVec[1],Beta=resultVec[2],Rsqr=resultVec[3], AbPval=prr[[1]])
             # double prr[[1]] brackets are needed here of the naming of the number gets messed up in outVec
 		}else{		
-			outVec<-c(Eta=resultVec[1],Beta=resultVec[2], t0=resultVec[3],Rsqr=resultVec[4])	
+			outVec<-c(Eta=resultVec[1], Beta=resultVec[2], t0=resultVec[3], Rsqr=resultVec[4])	
 		}		
 	}else{			
 		if(casenum < 8) {		
