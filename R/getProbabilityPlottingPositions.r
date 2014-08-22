@@ -7,8 +7,10 @@
 getProbabilityPlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL)  {							
 	fail  <-  length(x)
 	n  <-  fail+length(s)
-	##  create the event vector						
-	if(!missing(s)) {						
+
+
+	##  create the event vector
+	if(!missing(s)) {
 	## if(length(s)>0)  {						
 		## suspension data has been provided					
 		    data<-c(x,s)					
@@ -18,10 +20,20 @@ getProbabilityPlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Bena
 		    NDX<-order(prep_df[,1])					
 		    prep_df<-prep_df[NDX,]					
 	  }else{						
-		## this is simply a complete failure set					
+		## this is simply a complete failure set
+        # or ...
+        ev_info <- levels(factor(x))
+        if(identical(ev_info,c("0","1")) || identical(ev_info,"1")){
+            # we can assume that x is holding event indicators
+            event <- x
+            data <- 1:length(x)
+            prep_df<-data.frame(data=data,event=event)
+        }else{
+            ## this is simply a complete failure set
 		    data<-sort(x)					
 		    event<-rep(1,fail)					
-		    prep_df<-data.frame(data=data,event=event)					
+		    prep_df<-data.frame(data=data,event=event)
+        }
 	  }						
 							
 	if(tolower(aranks)=="johnson")  {						

@@ -39,12 +39,10 @@ Returns a dataframe with the failure data (as potentially reduced by ties argume
 }
 
 \examples{
-failures <- c(90,96,30,49,82)
-suspensions <- c(100,45,10)
-plot_positions <- getPPP(failures, suspensions)
-median_ranks <- plot_positions[,2]
-
-median_ranks <- getPPP(c(1,0,1,1,0,1,0,0,1,1))[,2]
+fail <- c(90,96,30,49,82)
+susp <- c(100,45,10)
+print(plot_positions <- getPPP(fail, susp))
+print(median_ranks <- plot_positions[,2])
 }
 
 \keyword{ regression reliability }
