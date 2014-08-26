@@ -27,7 +27,7 @@ MRRln2p<-function(x, s=NULL, bounds=FALSE, CL=0.90, show=FALSE)  {
 			
 		## descriptive quantiles for comparison with SuperSMITH (limit of 15 values)	
 		dq<-c(.01, .02, .05, .10, .15, .20, .30, .40, .50,  .60, .70, .80, .90, .95, .99)	
-		pivotals<-pivotalMC(gotppp,dist="lognormal",R2=0, CL=CL,unrel=dq,P1=P1,P2=P2)
+		pivotals<-pivotalMC(gotppp,dist="lognormal",r2=0, CL=CL,unrel=dq,P1=P1,P2=P2)
 		## check the slope of the median pivotals to get correction to 1.0	
 		median_slope<-(qnorm(dq[15], 0, 1)  - qnorm(dq[1], 0, 1))/(pivotals[15,2]-pivotals[1,2])	
 		median_intercept<-pivotals[10,2]-qnorm(dq[10], 0, 1)/median_slope	

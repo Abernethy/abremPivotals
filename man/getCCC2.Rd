@@ -21,7 +21,7 @@ getCCC2(fail, dist="weibull")
 }
 
 \value{
-Returns a single valued vector for the square of CCC (for comparison with R squared).
+Returns a single valued vector for the square of CCC (for comparison with r squared).
 }
 
 \references{

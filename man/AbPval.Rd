@@ -8,12 +8,12 @@ Dr. Abernethy has devoted several decades to promoting the percentile of r and r
 }
 
 \usage{
-AbPval(fail, R2, dist="weibull")
+AbPval(fail, r2, dist="weibull")
 }
 
 \arguments{
   \item{fail}{The quantity of complete failure (life-)time observations under consideration.}
-  \item{R2}{The square of the correlation coefficient derived from residuals of the linear model.}
+  \item{r2}{The square of the correlation coefficient derived from residuals of the linear model.}
   \item{dist}{A string defining the distribution under consideration. Only a value of "lognormal" will be treated any differently from default of "weibull".}
 
 }
@@ -22,7 +22,7 @@ AbPval(fail, R2, dist="weibull")
 }
 
 \value{
-Returns a vector containing the Abernethy P-value and the square of the Critical Correlation Coeficient (CCC, for comparison with R squared).
+Returns a vector containing the Abernethy P-value and the square of the Critical Correlation Coeficient (CCC, for comparison with r squared).
 }
 
 \references{

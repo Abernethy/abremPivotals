@@ -20,7 +20,7 @@ lslr(x, dist="weibull", npar=2, reg_method="xony")
 
 
 \value{
-Returns a named vector with parameters of the distribution fit and goodness of fit in terms of R squared.
+Returns a named vector with parameters of the distribution fit and goodness of fit in terms of r squared.
 }
 
 \references{
