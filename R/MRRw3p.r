@@ -4,7 +4,7 @@
  ##   (c)2014 OpenReliability.org
 ##
 
-MRRw3p<-function(x, s=NULL, bounds=FALSE, CI=0.90, show=FALSE)  {			
+MRRw3p<-function(x, s=NULL, bounds=FALSE, CL=0.90, show=FALSE)  {			
 	xName<-paste(deparse(substitute(x),500),collapse = "\n")		
 	thisTitle=paste(xName,"Weibull 3-p fit")		
 	gotppp<-getPPP(x, s,)		
@@ -32,7 +32,7 @@ MRRw3p<-function(x, s=NULL, bounds=FALSE, CI=0.90, show=FALSE)  {
 			
 		## descriptive quantiles for comparison with SuperSMITH (limit of 15 values)	
 		dq<-c(.01, .02, .05, .10, .15, .20, .30, .40, .50,  .60, .70, .80, .90, .95, .99)	
-		pivotals<-pivotalMC(gotppp,R2=0, CI=CI,unrel=dq,P1=P1,P2=P2)	
+		pivotals<-pivotalMC(gotppp,R2=0, CL=CL,unrel=dq,P1=P1,P2=P2)	
 		## use the slope of the median pivotals to get correction to 1.0	
 		median_slope<-(log(log(1/(1-dq[15])))-log(log(1/(1-dq[1]))))/(pivotals[15,2]-pivotals[1,2])	
 		median_intercept<-pivotals[10,2]-log(log(1/(1-dq[10])))/median_slope	

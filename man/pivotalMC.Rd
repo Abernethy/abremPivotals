@@ -8,7 +8,7 @@ This function implements a fast pivotal engine enabling a wide assortment of opt
 }
 
 \usage{
-pivotalMC(x, event=NULL, dist="weibull", reg_method="XonY", R2, CL, unrel,
+pivotalMC(x, event=NULL, dist="weibull", reg_method="xony", R2, CL, unrel,
   P1=1.0, P2=1.0, S=10^4, seed=1234, ProgRpt=FALSE) 
 }
 
@@ -17,8 +17,8 @@ pivotalMC(x, event=NULL, dist="weibull", reg_method="XonY", R2, CL, unrel,
   %% (Jurgen) also supported: 'rank'}
   \item{event}{An optional integer vector with 0's identifying the rank position of suspension data for sample masking.  Event masking will modestly narrow the confidence interval consistent with the addition of information.  The user has full control over determination of significance of the suspension data for this process.}
   \item{dist}{A string defining a distribution to be fit. Implemented distributions are \code{"weibull"} (default), \code{"lognormal"}, and \code{"gumbel"} (Extreme Value Type 1)}
-  \item{reg_method}{A string defining a method of regression optimization whether "XonY" axis (default and "best practice for standard small sample fitting") or "YonX" axis for alternative study (\code{"YonX"} is recommended for an inspection option by Abernethy).}
-  %% XonY are capitalized?...
+  \item{reg_method}{A string defining a method of regression optimization whether "xony" axis (default and "best practice for standard small sample fitting") or "yonx" axis for alternative study (\code{"yonx"} is recommended for an inspection option by Abernethy).}
+ 
   \item{R2}{The explained variance (R squared) from a linear regression of a data sample of interest having size=x or event vector represented by \code{x}.}
   \item{CL}{The confidence level of the double sided confidence interval of interest.}
   \item{unrel}{A vector of probabilities at which to determine the pivotal quantities for confidence bounds.  Also referred to as 'descriptive quantiles' or 'confidence bound quantiles' by Jacob Ormerod.}

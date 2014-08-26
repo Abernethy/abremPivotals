@@ -46,7 +46,7 @@ SEXP pivotalMCw2pXonY(SEXP arg1, SEXP arg2, SEXP arg3, SEXP arg4, SEXP arg5, SEX
 // establish output to be provided and prepare case records			
 	Rcpp::NumericVector SimControl(arg3);		
 	double R2test= SimControl[0];		
-	double  CItest=SimControl[1];		
+	double  CLtest=SimControl[1];		
 	int prrout=0;		
 	int pivout=0;		
 			
@@ -122,7 +122,7 @@ int LastPct=0;
 // Here the pivotals for confidence bounds are built				
 // note that this pivotal is composed of (yp-u_hat)/b_hat, which is negative of Lawless' pivotal				
 // the pivotals matrix is only built if called for by output control				
-	if(CItest>0.0)  {			
+	if(CLtest>0.0)  {			
 				
 		qpiv.row(i)=arma::trans((CBq-coef(0))/coef(1));		
 	}			
@@ -169,14 +169,14 @@ LastPct = ProgPct;
 				
 	}}			
 				
-	if(CItest>0.0) {			
+	if(CLtest>0.0) {			
 		pivout=1;		
 		for(int i=0; i<ndq; i++)  {		
 			qpiv.col(i)=arma::sort(qpiv.col(i));	
 		}		
-	if(CItest< 1.0) {			
+	if(CLtest< 1.0) {			
 		pivout=2;		
-		LCB=(int) S*(1-CItest)/2;		
+		LCB=(int) S*(1-CLtest)/2;		
 		LBpiv=qpiv.row(LCB-1);		
 		HBpiv=qpiv.row(S-LCB-1);		
 		median=qpiv.row(S/2-1);		
@@ -269,7 +269,7 @@ LastPct = ProgPct;
 // establish output to be provided and prepare case records			
 	Rcpp::NumericVector SimControl(arg3);		
 	double R2test= SimControl[0];		
-	double  CItest=SimControl[1];		
+	double  CLtest=SimControl[1];		
 	int prrout=0;		
 	int pivout=0;		
 			
@@ -347,7 +347,7 @@ int LastPct=0;
 // Here the pivotals for confidence bounds are built				
 // note that this pivotal is composed of (yp-u_hat)/s_hat, which is negative of Lawless' pivotal				
 // the pivotals matrix is only built if called for by output control				
-	if(CItest>0.0)  {			
+	if(CLtest>0.0)  {			
 // need to confirm coeficient use here (x still equals (y-b)/m, if y=mx+b)				
 		qpiv.row(i)=arma::trans((CBq-coef(0))/coef(1));		
 	}			
@@ -394,14 +394,14 @@ LastPct = ProgPct;
 				
 	}}			
 				
-	if(CItest>0.0) {			
+	if(CLtest>0.0) {			
 		pivout=1;		
 		for(int i=0; i<ndq; i++)  {		
 			qpiv.col(i)=arma::sort(qpiv.col(i));	
 		}		
-	if(CItest< 1.0) {			
+	if(CLtest< 1.0) {			
 		pivout=2;		
-		LCB=(int) S*(1-CItest)/2;		
+		LCB=(int) S*(1-CLtest)/2;		
 		LBpiv=qpiv.row(LCB-1);		
 		HBpiv=qpiv.row(S-LCB-1);		
 		median=qpiv.row(S/2-1);		
@@ -495,7 +495,7 @@ SEXP pivotalMCw2pYonX(SEXP arg1, SEXP arg2, SEXP arg3, SEXP arg4, SEXP arg5, SEX
 // establish output to be provided and prepare case records			
 	Rcpp::NumericVector SimControl(arg3);		
 	double R2test= SimControl[0];		
-	double  CItest=SimControl[1];		
+	double  CLtest=SimControl[1];		
 	int prrout=0;		
 	int pivout=0;		
 			
@@ -575,7 +575,7 @@ int LastPct=0;
 // Here the pivotals for confidence bounds are built				
 // note that this pivotal is composed of (yp-u_hat)/b_hat, which is negative of Lawless' pivotal				
 // the pivotals matrix is only built if called for by output control				
-	if(CItest>0.0)  {			
+	if(CLtest>0.0)  {			
 // need to confirm coeficient use here with x and y reversed x=my+b)				
 		qpiv.row(i)=arma::trans(coef(1)*CBq+coef(0));		
 	}			
@@ -622,14 +622,14 @@ LastPct = ProgPct;
 				
 	}}			
 				
-	if(CItest>0.0) {			
+	if(CLtest>0.0) {			
 		pivout=1;		
 		for(int i=0; i<ndq; i++)  {		
 			qpiv.col(i)=arma::sort(qpiv.col(i));	
 		}		
-	if(CItest< 1.0) {			
+	if(CLtest< 1.0) {			
 		pivout=2;		
-		LCB=(int) S*(1-CItest)/2;		
+		LCB=(int) S*(1-CLtest)/2;		
 		LBpiv=qpiv.row(LCB-1);		
 		HBpiv=qpiv.row(S-LCB-1);		
 		median=qpiv.row(S/2-1);		
@@ -723,7 +723,7 @@ SEXP pivotalMCln2pYonX(SEXP arg1, SEXP arg2, SEXP arg3, SEXP arg4, SEXP arg5, SE
 // establish output to be provided and prepare case records		
 	Rcpp::NumericVector SimControl(arg3);	
 	double R2test= SimControl[0];	
-	double  CItest=SimControl[1];	
+	double  CLtest=SimControl[1];	
 	int prrout=0;	
 	int pivout=0;	
 		
@@ -803,7 +803,7 @@ int LastPct=0;
 // Here the pivotals for confidence bounds are built				
 // note that this pivotal is composed of (yp-u_hat)/s_hat, which is negative of Lawless' pivotal				
 // the pivotals matrix is only built if called for by output control				
-	if(CItest>0.0)  {			
+	if(CLtest>0.0)  {			
 // need to confirm coefficient use here with x and y reversed x=my+b)				
 		qpiv.row(i)=arma::trans(coef(1)*CBq+coef(0));		
 	}			
@@ -850,14 +850,14 @@ LastPct = ProgPct;
 				
 	}}			
 				
-	if(CItest>0.0) {			
+	if(CLtest>0.0) {			
 		pivout=1;		
 		for(int i=0; i<ndq; i++)  {		
 			qpiv.col(i)=arma::sort(qpiv.col(i));	
 		}		
-	if(CItest< 1.0) {			
+	if(CLtest< 1.0) {			
 		pivout=2;		
-		LCB=(int) S*(1-CItest)/2;		
+		LCB=(int) S*(1-CLtest)/2;		
 		LBpiv=qpiv.row(LCB-1);		
 		HBpiv=qpiv.row(S-LCB-1);		
 		median=qpiv.row(S/2-1);		
@@ -951,7 +951,7 @@ SEXP pivotalMCg2pXonY(SEXP arg1, SEXP arg2, SEXP arg3, SEXP arg4, SEXP arg5, SEX
 // establish output to be provided and prepare case records	
 	Rcpp::NumericVector SimControl(arg3);
 	double R2test= SimControl[0];
-	double  CItest=SimControl[1];
+	double  CLtest=SimControl[1];
 	int prrout=0;
 	int pivout=0;
 	
@@ -1031,7 +1031,7 @@ int LastPct=0;
 // Here the pivotals for confidence bounds are built				
 // note that this pivotal is composed of (yp-u_hat)/b_hat, which is negative of Lawless' pivotal				
 // the pivotals matrix is only built if called for by output control				
-	if(CItest>0.0)  {			
+	if(CLtest>0.0)  {			
 				
 		qpiv.row(i)=arma::trans((CBq-coef(0))/coef(1));		
 	}			
@@ -1078,14 +1078,14 @@ LastPct = ProgPct;
 				
 	}}			
 				
-	if(CItest>0.0) {			
+	if(CLtest>0.0) {			
 		pivout=1;		
 		for(int i=0; i<ndq; i++)  {		
 			qpiv.col(i)=arma::sort(qpiv.col(i));	
 		}		
-	if(CItest< 1.0) {			
+	if(CLtest< 1.0) {			
 		pivout=2;		
-		LCB=(int) S*(1-CItest)/2;		
+		LCB=(int) S*(1-CLtest)/2;		
 		LBpiv=qpiv.row(LCB-1);		
 		HBpiv=qpiv.row(S-LCB-1);		
 		median=qpiv.row(S/2-1);		
@@ -1179,7 +1179,7 @@ SEXP pivotalMCg2pYonX(SEXP arg1, SEXP arg2, SEXP arg3, SEXP arg4, SEXP arg5, SEX
 // establish output to be provided and prepare case records		
 	Rcpp::NumericVector SimControl(arg3);	
 	double R2test= SimControl[0];	
-	double  CItest=SimControl[1];	
+	double  CLtest=SimControl[1];	
 	int prrout=0;	
 	int pivout=0;	
 		
@@ -1259,7 +1259,7 @@ int LastPct=0;
 // Here the pivotals for confidence bounds are built				
 // note that this pivotal is composed of (yp-u_hat)/b_hat, which is negative of Lawless' pivotal				
 // the pivotals matrix is only built if called for by output control				
-	if(CItest>0.0)  {			
+	if(CLtest>0.0)  {			
 // need to confirm coefficient use here with x and y reversed x=my+b)				
 		qpiv.row(i)=arma::trans(coef(1)*CBq+coef(0));		
 	}			
@@ -1306,14 +1306,14 @@ LastPct = ProgPct;
 				
 	}}			
 				
-	if(CItest>0.0) {			
+	if(CLtest>0.0) {			
 		pivout=1;		
 		for(int i=0; i<ndq; i++)  {		
 			qpiv.col(i)=arma::sort(qpiv.col(i));	
 		}		
-	if(CItest< 1.0) {			
+	if(CLtest< 1.0) {			
 		pivout=2;		
-		LCB=(int) S*(1-CItest)/2;		
+		LCB=(int) S*(1-CLtest)/2;		
 		LBpiv=qpiv.row(LCB-1);		
 		HBpiv=qpiv.row(S-LCB-1);		
 		median=qpiv.row(S/2-1);		
