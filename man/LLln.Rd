@@ -33,7 +33,7 @@ Returns a log-likelihood value.
 \examples{
 failures<-c(90,96,30,49,82)
 suspensions<-c(100,45,10)
-fit<-lslr(getPPP(failures, suspensions),dist="lnorm")
+fit<-lslr(getPPP(failures, suspensions),dist="lognormal")
 LL<-LLln(failures, suspensions, fit[1], fit[2])
 }
 

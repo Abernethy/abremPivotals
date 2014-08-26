@@ -13,7 +13,7 @@ getCCC2(fail, dist="weibull")
 
 \arguments{
   \item{fail}{The quantity of complete failure (life-)time observations under consideration.}
-  \item{dist}{A string defining the distribution under consideration. Only a value of "lnorm" will be treated any differently from default of "weibull".}
+  \item{dist}{A string defining the distribution under consideration. Only a value of "lognormal" will be treated any differently from default of "weibull".}
 
 }
 
@@ -29,7 +29,7 @@ Returns a single valued vector for the square of CCC (for comparison with R squa
 }
 
 \examples{
-thisCCC2<-getCCC2(50, "lnorm")
+thisCCC2<-getCCC2(50, "lognormal")
 }
 
 \keyword{ regression reliability }

@@ -10,7 +10,7 @@ MRRln3p<-function(x, s=NULL, bounds=FALSE, CI=0.90, show=FALSE)  {
 	gotppp<-getPPP(x, s)		
 	probability<-as.vector(gotppp[,2])		
 	x<-as.vector(gotppp[,1])		
-	fit<-lslr(gotppp, dist="lnorm",npar=3)		
+	fit<-lslr(gotppp, dist="lognormal",npar=3)
 	LL3p<-LLln(x-fit[3],s-fit[3],fit[1],fit[2])		
 	fit2p<-MRRln2p(x,s)		
 ## degrees of freedom (df) = 1 for 3p vs 2p test constrained on same distribution			
@@ -32,7 +32,7 @@ MRRln3p<-function(x, s=NULL, bounds=FALSE, CI=0.90, show=FALSE)  {
 			
 		## descriptive quantiles for comparison with SuperSMITH (limit of 15 values)	
 		dq<-c(.01, .02, .05, .10, .15, .20, .30, .40, .50,  .60, .70, .80, .90, .95, .99)	
-		pivotals<-pivotalMC(gotppp,dist="lnorm",R2=0, CI=CI,unrel=dq,P1=P1,P2=P2)	
+		pivotals<-pivotalMC(gotppp,dist="lognormal",R2=0, CI=CI,unrel=dq,P1=P1,P2=P2)
 		## check the slope of the median pivotals to get correction to 1.0	
 		median_slope<-(qnorm(dq[15], 0, 1)  - qnorm(dq[1], 0, 1))/(pivotals[15,2]-pivotals[1,2])	
 		median_intercept<-pivotals[10,2]-qnorm(dq[10], 0, 1)/median_slope	

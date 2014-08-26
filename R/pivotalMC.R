@@ -50,7 +50,7 @@ pivotalMC <- function(x, dist="weibull", reg_method="xony", R2, CL, unrel, P1=1.
 				
 	casenum <- 0			
 	if(tolower(reg_method)=="yonx") casenum <- casenum+1						
-	if(dist=="lnorm") casenum <- casenum+2			
+	if(dist=="lognormal") casenum <- casenum+2
 	if(dist=="gumbel") casenum <- casenum+4			
 				
 				

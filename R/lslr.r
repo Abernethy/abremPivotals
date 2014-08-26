@@ -24,7 +24,7 @@ lslr <- function(x, dist="weibull", npar=2, reg_method="xony")  {
 	casenum<-0			
 	if(tolower(reg_method)=="yonx") casenum=casenum+1
 	if(npar==3) casenum=casenum+2			
-	if(dist=="lnorm") casenum=casenum+4			
+	if(dist=="lognormal") casenum=casenum+4
 	if(dist=="gumbel") casenum=casenum+8			
 
     na.omit				
@@ -44,7 +44,7 @@ lslr <- function(x, dist="weibull", npar=2, reg_method="xony")  {
 	}else{			
 		if(casenum < 8) {		
 			if(length(resultVec)==3)  {	
-				prr<-AbPval(length(x[,1]), resultVec[3],"lnorm")
+				prr<-AbPval(length(x[,1]), resultVec[3],"lognormal")
 				outVec<-c(Mulog=resultVec[1],Sigmalog=resultVec[2],Rsqr=resultVec[3], AbPval=prr[[1]])	
 			}else{	
 				outVec<-c(Mulog=resultVec[1],Sigmalog=resultVec[2], t0=resultVec[3],Rsqr=resultVec[4])

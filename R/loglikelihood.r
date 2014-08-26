@@ -36,7 +36,7 @@ LLw<-function(x,s=NULL,Eta,Beta)  {
 
 LLln<-function(x,s=NULL,Mulog,Sigmalog)  {					
 	suscomp<-0				
-	failcomp<-sum(dlnorm(x,Mulog,Sigmalog,log=TRUE))				
+	failcomp<-sum(dlnorm(x,Mulog,Sigmalog,log=TRUE))
 	if(length(s)>0)  {				
 		if(any(s<=0))  {			
 			s2<-NULL		
@@ -45,10 +45,10 @@ LLln<-function(x,s=NULL,Mulog,Sigmalog)  {
 			}		
 			s<-s2		
 			if(length(s)>0)  {		
-				suscomp<-sum(plnorm(s,Mulog,Sigmalog,lower.tail=FALSE,log.p=TRUE))	
+				suscomp<-sum(plnorm(s,Mulog,Sigmalog,lower.tail=FALSE,log.p=TRUE))
 			}		
 		}else{			
-			suscomp<-sum(plnorm(s,Mulog,Sigmalog,lower.tail=FALSE,log.p=TRUE))		
+			suscomp<-sum(plnorm(s,Mulog,Sigmalog,lower.tail=FALSE,log.p=TRUE))
 		}			
 	}				
 	value<-failcomp+suscomp				

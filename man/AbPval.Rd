@@ -14,7 +14,7 @@ AbPval(fail, R2, dist="weibull")
 \arguments{
   \item{fail}{The quantity of complete failure (life-)time observations under consideration.}
   \item{R2}{The square of the correlation coefficient derived from residuals of the linear model.}
-  \item{dist}{A string defining the distribution under consideration. Only a value of "lnorm" will be treated any differently from default of "weibull".}
+  \item{dist}{A string defining the distribution under consideration. Only a value of "lognormal" will be treated any differently from default of "weibull".}
 
 }
 
@@ -31,7 +31,7 @@ Returns a vector containing the Abernethy P-value and the square of the Critical
 
 \examples{
 
-AbernethyPvalue <- AbPval(50, 0.996, "lnorm")
+AbernethyPvalue <- AbPval(50, 0.996, "lognormal")
 }
 
 \keyword{ regression reliability }

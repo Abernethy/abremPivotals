@@ -1,4 +1,7 @@
-2014-07-27 Jurgen Symynck <jusy@openreliability.org>
+2014-08-26 Jurgen Symynck <jusy@openreliability.org>
+		* upgraded abremPivotals 0.2.8 to 0.2.9
+		changed "lnorm" to "lognormal"
 
+2014-07-27 Jurgen Symynck <jusy@openreliability.org>		
         * upgraded abremPivotals 0.2.7 to 0.2.8
 		General man page updates and typo corrections, 
