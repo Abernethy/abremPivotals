@@ -39,7 +39,11 @@ lslr <- function(x, dist="weibull", npar=2, reg_method="xony")  {
 			outVec<-c(Eta=resultVec[1],Beta=resultVec[2],Rsqr=resultVec[3], AbPval=prr[[1]])
             # double prr[[1]] brackets are needed here of the naming of the number gets messed up in outVec
 		}else{		
-			outVec<-c(Eta=resultVec[1], Beta=resultVec[2], t0=resultVec[3], Rsqr=resultVec[4])	
+			outVec<-c(Eta=resultVec[1],Beta=resultVec[2], t0=resultVec[3],Rsqr=resultVec[4])
+			if(resultVec[5]==1)  {			
+				warn="3p optimization did not converge"
+				attr(outvec,"warning")<-warn
+			}			
 		}		
 	}else{			
 		if(casenum < 8) {		
@@ -48,12 +52,20 @@ lslr <- function(x, dist="weibull", npar=2, reg_method="xony")  {
 				outVec<-c(Mulog=resultVec[1],Sigmalog=resultVec[2],Rsqr=resultVec[3], AbPval=prr[[1]])	
 			}else{	
 				outVec<-c(Mulog=resultVec[1],Sigmalog=resultVec[2], t0=resultVec[3],Rsqr=resultVec[4])
+				if(resultVec[5]==1)  {
+					warn="3p optimization did not converge"
+					attr(outVec,"warning")<-warn
+				}
 			}	
 		}else{		
 			if(length(resultVec)==3)  {	
 				outVec<-c(Etalog=resultVec[1],Betalog=resultVec[2],Rsqr=resultVec[3])
 			}else{	
 				outVec<-c(Etalog=resultVec[1],Betalog=resultVec[2], t0=resultVec[3],Rsqr=resultVec[4])
+				if(resultVec[5]==1)  {
+					warn="3p optimization did not converge"
+					attr(outVec,"warning")<-warn
+				}				
 			}	
 		}		
 	}			

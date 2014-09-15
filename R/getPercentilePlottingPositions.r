@@ -1,10 +1,10 @@
-## getProbabilityPlottingPositions.r file
+## getPercentilePlottingPositions.r file
  ##
  ## Author: Jacob T. Ormerod
  ##   (c)2014 OpenReliability.org
 ##
 
-getProbabilityPlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL)  {							
+getPercentilePlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL)  {							
 	fail  <-  length(x)
 	n  <-  fail+length(s)
 
@@ -162,4 +162,4 @@ getProbabilityPlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Bena
 return(outDF)							
 }							
 ## assign the alias							
-getPPP<-getProbabilityPlottingPositions							
+getPPP<-getPercentilePlottingPositions							

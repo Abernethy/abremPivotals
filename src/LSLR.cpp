@@ -286,7 +286,8 @@ SEXP LSLR3p(SEXP arg1, SEXP arg2, SEXP arg3, SEXP (*LSLR2p)(SEXP, SEXP) )
 	        Rcpp::NumericVector ppp(arg2);					
 	double DL=as<double>(arg3);					
 	        int F=fail.size();					
-						
+			int warning=0;
+			
 						
 						
 	int maxit=100;					
@@ -327,9 +328,18 @@ SEXP LSLR3p(SEXP arg1, SEXP arg2, SEXP arg3, SEXP (*LSLR2p)(SEXP, SEXP) )
 						
 						
  // This is the start of the main loop						
-	while(fabs(DX)>DL&& istep<maxit)  {					
+//	while(fabs(DX)>DL&& istep<maxit&&warning==0)  {	
+	while(fabs(DX)>DL && istep<maxit)  {		
 	FX0=FX1;					
-	 FX1=dR2dx(X1,fail,ppp,DL, LSLR2p);					
+	 FX1=dR2dx(X1,fail,ppp,DL, LSLR2p);	
+
+	if(FX1!=FX1)  {	
+		FX1=FX0;
+		warning=1;
+		break;
+	}	
+
+	 
  // FX1 will contain slope sign information to be used only one time to find X2						
 	D=fabs(FX1-FX0);					
 	X2=X1+fabs(X1-X0)*FX1/D;					
@@ -349,17 +359,18 @@ SEXP LSLR3p(SEXP arg1, SEXP arg2, SEXP arg3, SEXP (*LSLR2p)(SEXP, SEXP) )
 	Rcpp::NumericVector mdata(F);					
 	for(int i=0; i<F; i++) {mdata[i]=fail[i]-X0;}					
 	Rcpp::NumericVector finalfit=LSLR2p(mdata,ppp);					
-	Rcpp::NumericVector outvec(4);					
+	Rcpp::NumericVector outvec(5);					
 	outvec[0]=finalfit[0];					
 	outvec[1]=finalfit[1];					
 	outvec[2]=X0;					
-	outvec[3]=finalfit[2];					
+	outvec[3]=finalfit[2];
+	outvec[4]=warning;
 						
-	return wrap(outvec);					
+	return outvec;					
 						
 						
 	}					
-						
+						 
 SEXP LSLR(SEXP arg1, SEXP arg2, SEXP arg3, SEXP arg4)				
 {				
 				

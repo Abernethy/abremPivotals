@@ -1,8 +1,7 @@
-\name{getProbabilityPlottingPositions}
-\alias{getProbabilityPlottingPositions}
-\alias{getPPP}
+\name{getPercentilePlottingPositions}
+\alias{getPercentilePlottingPositions}
 
-\title{Determination of probability plotting positions for linear regression with many optional methods}
+\title{Determination of percentile plotting positions for linear regression with many optional methods}
 
 \description{
 Determination of plotting positions to be used for linear regression of life data analysis is a highly debated topic.  This function implements a wide assortment of options for the Abernethy Reliability Methods project.
@@ -43,6 +42,9 @@ fail <- c(90,96,30,49,82)
 susp <- c(100,45,10)
 print(plot_positions <- getPPP(fail, susp))
 print(median_ranks <- plot_positions[,2])
+
+%% median_ranks<-getPPP(c(1,0,1,1,0,1,0,0,1,1))[,2]
+
 }
 
-\keyword{ regression reliability }
+\keyword{ regression reliability median ranks }
