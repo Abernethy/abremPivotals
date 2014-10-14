@@ -14,11 +14,13 @@ AbPval(fail, r2, dist="weibull")
 \arguments{
   \item{fail}{The quantity of complete failure (life-)time observations under consideration.}
   \item{r2}{The square of the correlation coefficient derived from residuals of the linear model.}
-  \item{dist}{A string defining the distribution under consideration. Only a value of "lognormal" will be treated any differently from default of "weibull".}
+  \item{dist}{A string defining the distribution under consideration. Only a value of \code{"lognormal"} will be treated any differently from default of \code{"weibull"}.}
 
 }
 
-\details{The value returned is derived from a correlation developed from previously run pivotal analysis with 10^8 random samples.  Project "Abernethy Reliability Methods" has judged that only the prr derived from 2 parameter models to have usefullness in comparitive analysis.  This is seen from the "Detect Power" presentations in Appendix D of "The New Weibull Handbook, Fifth Edition".  For validity of a 3rd parameter optimization on a given model over its 2 parameter fit, only the Likelihood Ratio test will be applied.  
+\details{The value returned is derived from a correlation developed from previously run pivotal analysis with 10^8 random samples.
+% It would be nice (maybe even necessary for academic credibility) if you can provide the code for this previous analysis as some kind of vignette to be accessible by others.
+Project "Abernethy Reliability Methods" has judged that only the prr derived from two-parameter models to have usefullness in comparitive analysis.  This is seen from the "Detect Power" presentations in Appendix D of "The New Weibull Handbook, Fifth Edition".  For validity of a third parameter optimization on a given model over its two-parameter fit, only the Likelihood Ratio test will be applied.  
 }
 
 \value{
@@ -26,7 +28,7 @@ Returns a vector containing the Abernethy P-value and the square of the Critical
 }
 
 \references{
-  Dr. Robert B. Abernethy, (2008) "The New Weibull Handbook, Fifth Edition"
+  Dr. Robert B. Abernethy, (2008) \emph{The New Weibull Handbook}, Fifth Edition
 }
 
 \examples{

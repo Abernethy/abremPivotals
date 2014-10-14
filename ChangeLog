@@ -1,3 +1,10 @@
+2014-10-11 Jurgen Symynck <jusy@openreliability.org>
+		Started implementing changes on naming conventions (susp vs. s) and capitalization of function arguments. Started tweaking the manuals by adding \code{} and \emph{} where applicable. This effort is still ongoing and has not been conducted codewide. 
+		* getPPP (getPercentilePlottingPositions.r): Made getPPP the primary function and getPercentilePlottingPositions the secondary, to
+		prevent problems and excessive typing during debugging. Added na.rm argument. getPPP now can return the event vector.
+		*pivotalMC(pivotalMC.r): removed argument 'event', added support for event columns in the 'x' argument
+		
+		
 2014-08-26 Jurgen Symynck <jusy@openreliability.org>
 		* upgraded abremPivotals 0.2.8 to 0.2.9
 		changed "lnorm" to "lognormal"

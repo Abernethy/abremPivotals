@@ -1,13 +1,10 @@
 pivotalMC <- function(x, dist="weibull", reg_method="xony", r2, CL, unrel, P1=1.0, P2=1.0, S=10^4, seed=1234, ProgRpt=FALSE)  {	
     # NOTES (Jurgen):
-    #   I renamed CI to CL, because CL is suited as a name for 
-    #   single and double bounded confidence intervals. as confidence interval
-    #   is for double bounded  intervals
     #   adaptation of original pivotalMC2 to be pin compatible with abrem's x$fit[[i]]$data 
     #   dataframe in the abrem object:
-    #   the dataframe always holds 'time', 'event' and 'ppp' columns
+    #   the dataframe 'x' always holds 'time', 'event' and 'ppp' columns
     
-    #   I also removed event argument because this might conflict with
+    #   I removed event argument because this might conflict with
     #   the event column in x (when x is a data frame)
     #   the proper way to allow passing events to the function is by using the 
     #   ellipsis function so that the user must explicitly specify event vectors
@@ -15,8 +12,10 @@ pivotalMC <- function(x, dist="weibull", reg_method="xony", r2, CL, unrel, P1=1.
     #   in the current iteration, event vectors are only supported as a column of
     #   x. 
     
-    #   see Abrem() for code example on ho wto accompliksh this, but you will notice that
+    #   see Abrem() for code example on how to accomplish this, but you will notice that
     #   we are about to duplicate efforts ...
+
+    #   P1 or p1, P2 or p2? 
 
     if(is.data.frame(x)){
         if(!is.null(x$time) && !is.null(x$event)){
@@ -60,6 +59,8 @@ pivotalMC <- function(x, dist="weibull", reg_method="xony", r2, CL, unrel, P1=1.
     
 	if(S > 4*10^9)   {
 		stop("Samples beyond MAX_INT")
+        # TODO (Jurgen, 11/10/2014: replace the above with .Machine$integer.max, which
+        # on my machine is half of 4*10^9
 	}
 				
 	casenum <- 0			
@@ -68,7 +69,7 @@ pivotalMC <- function(x, dist="weibull", reg_method="xony", r2, CL, unrel, P1=1.
 	if(dist=="gumbel") casenum <- casenum+4			
 				
 				
-	result <- .Call("pivotalMC", x[,which(where)[1]], x$event, c(r2,CL,P1,P2), S, seed, unrel, ProgRpt, casenum , package="abremPivotals")
+	result <- .Call("pivotalMC", na.omit(x[,which(where)[1]]), x$event, c(r2,CL,P1,P2), S, seed, unrel, ProgRpt, casenum , package="abremPivotals")
     # TODO: x[,which(where)[1]]: use the first match of a supported ranking method for calculating pivotals
 
 

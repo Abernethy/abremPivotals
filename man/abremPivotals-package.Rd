@@ -23,15 +23,15 @@ Jacob T. Ormerod
 Maintainer: Jacob T. Ormerod <jake@openreliability.org>
 }
 \references{
- Dr. Robert B. Abernethy, (2008) "The New Weibull Handbook, Fifth Edition"
+ Dr. Robert B. Abernethy, (2008) \emph{The New Weibull Handbook}, Fifth Edition
  
- Eddelbuettel D, (2013) "Seamless R and C++ Integration with Rcpp"
+ Eddelbuettel D, (2013) \emph{Seamless R and C++ Integration with Rcpp}
  
- Leonard G Johnson, (1964) "The Statistical Treatment of Fatigue Experiments"
+ Leonard G Johnson, (1964) \emph{The Statistical Treatment of Fatigue Experiments}
  
- Jerald F. Lawless, (2003) "Statistical Models and Methods for Lifelime Data, Second Edition" 
+ Jerald F. Lawless, (2003) \emph{Statistical Models and Methods for Lifelime Data}, Second Edition
  
- ReliaSoft Corporation (Retrieved 2014) "Life Data Analysis Reference Book" 
+ ReliaSoft Corporation (Retrieved 2014) \emph{Life Data Analysis Reference Book} 
 }
 
 \keyword{ package reliability }

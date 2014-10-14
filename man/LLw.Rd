@@ -27,8 +27,9 @@ Returns a log-likelihood value.
 }
 
 \references{
-  Dr. Robert B. Abernethy, (2008) "The New Weibull Handbook, Fifth Edition"
-  Leonard C. Johnson (1964) "The Statistical Treatment of Fatique Experiments"  
+  Dr. Robert B. Abernethy, (2008) \emph{The New Weibull Handbook} Fifth Edition
+  
+  Leonard C. Johnson (1964) \emph{The Statistical Treatment of Fatique Experiments}  
 }
 
 \examples{

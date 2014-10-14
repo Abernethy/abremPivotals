@@ -33,7 +33,7 @@ MRRln3p(x, s=NULL, bounds=FALSE, CL=0.90, show=FALSE)
 }
 
 \references{
-  Dr. Robert B. Abernethy, (2008) "The New Weibull Handbook, Fifth Edition"
+  Dr. Robert B. Abernethy, (2008) \emph{The New Weibull Handbook}, Fifth Edition
 }
 
 \examples{

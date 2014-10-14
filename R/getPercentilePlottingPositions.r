@@ -4,16 +4,17 @@
  ##   (c)2014 OpenReliability.org
 ##
 
-getPercentilePlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL)  {							
+getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL, na.rm=TRUE)  {
+    # Jurgen, October 11 2014: I added ra.rm argument
 	fail  <-  length(x)
-	n  <-  fail+length(s)
+	n  <-  fail+length(susp)
 
 
 	##  create the event vector
-	if(!missing(s)) {
-	## if(length(s)>0)  {						
+	if(!missing(susp)) {
+	## if(length(susp)>0)  {
 		## suspension data has been provided					
-		    data<-c(x,s)					
+		    data<-c(x,susp)
 		    event<-c(rep(1,fail),rep(0,n-fail))					
 		    prep_df<-data.frame(data=data,event=event)					
 		## now sort the dataframe on data values					
@@ -49,9 +50,14 @@ getPercentilePlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Benar
 			adj_rank<-c(adj_rank,adj_rank[k])				
 			}				
 		}					
-		prep_df<-cbind(prep_df,adj_rank=adj_rank[-1])					
-		## now eliminate the suspension data					
-		prep_df<-prep_df[sapply(prep_df$event, function(x) x>0),c(1,3)]					
+		prep_df<-cbind(prep_df,adj_rank=adj_rank[-1])
+        if(na.rm){
+            prep_df<-prep_df[sapply(prep_df$event, function(x) x>0),c(1,3)]
+        }else{
+            # package abrem needs all data
+            prep_df[prep_df[,'event']==0,3] <- NA
+        }
+
 	}else{						
 		if(tolower(aranks)=="kmestimator")  {					
 		## adjust ranks using David Silkworth's adaptation of the modified					
@@ -65,11 +71,17 @@ getPercentilePlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Benar
 				}else{			
 				adj_rank<-c(adj_rank,adj_rank[k])			
 				}			
-			}				
-			prep_df<-cbind(prep_df,adj_rank=adj_rank[-1])				
-			## now eliminate the suspension data				
-			prep_df<-prep_df[sapply(prep_df$event, function(x) x>0),c(1,3)]				
-			## Now provide a modification for the final element if it was a failure
+			}
+            prep_df<-cbind(prep_df,adj_rank=adj_rank[-1])
+            ## now eliminate the suspension data
+            if(na.rm){
+                prep_df<-prep_df[sapply(prep_df$event, function(x) x>0),c(1,3)]
+            }else{
+                # package abrem needs all data
+                prep_df[prep_df[,'event']==0,3] <- NA
+            }
+
+            ## Now provide a modification for the final element if it was a failure
 			## This adjustment is used by Minitab
 			if(prep_df$adj_rank[fail]==1)  {				
 				prep_df$adj_rank[fail]=1-((1-prep_df$adj_rank[fail-1])*1/10)			
@@ -156,10 +168,20 @@ getPercentilePlottingPositions <- function(x, s=NULL, interval=NULL, ppos="Benar
 			stop("ppos argument not recognized")
 		}		
 	}						
-							
-	outDF<-cbind(prep_df$data,data.frame(ppp),prep_df$adj_rank)						
-	colnames(outDF)<-c("time","ppp","adj_rank")	
+	if(na.rm){
+    	outDF <- cbind(prep_df$data,data.frame(ppp),prep_df$adj_rank)
+    	colnames(outDF) <- c("time","ppp","adj_rank")
+    }else{
+    	outDF <- cbind(prep_df$data,data.frame(ppp),prep_df$adj_rank,prep_df$event)
+    	colnames(outDF) <- c("time","ppp","adj_rank","event")
+        # Jurgen, October 7, 2014: including the event vector is only possible (I believe)
+        # as long as we are not playing around with interval censored data, Jacob-style.
+        # Check with Jacob to be sure.
+        # For now, it is needed for abrem:::calculateSingleConf to calculate the confidence bounds
+        # (abrem 0.2.9)
+        # TODO (Jurgen 9/10/2014): the if(na.rm) code seems convoluted, can be written shorter
+    }
 return(outDF)							
 }							
 ## assign the alias							
-getPPP<-getPercentilePlottingPositions							
+getPercentilePlottingPositions <-getPPP

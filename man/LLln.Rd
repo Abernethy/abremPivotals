@@ -27,7 +27,7 @@ Returns a log-likelihood value.
 }
 
 \references{
-  Dr. Robert B. Abernethy, (2008) "The New Weibull Handbook, Fifth Edition"  
+  Dr. Robert B. Abernethy, (2008) \emph{The New Weibull Handbook}, Fifth Edition 
 }
 
 \examples{
