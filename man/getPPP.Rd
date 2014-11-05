@@ -9,7 +9,8 @@ Determination of plotting positions to be used for linear regression of life dat
 }
 
 \usage{
-getPPP(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL, na.rm=TRUE)
+getPPP(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL,
+ na.rm=TRUE)
 }
 
 %% TODO: rewrite with the idea that all  data are times. Instead of "data" use (life-)time observation
