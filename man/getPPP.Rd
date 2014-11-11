@@ -16,7 +16,7 @@ getPPP(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL)
 %% 75% complete
 
 \arguments{
-  \item{x}{A vector of complete failure (life-)time observations.}
+  \item{x}{A vector of complete failure (life-)time observations. Alternatively, a dataframe including a time column of fixed-time entries and an event column signifying failures as '1' and (right censored) suspension data as '0' will be accepted.  If the event-time dataframe is provided any value(s) in susp will be ignored.}
   \item{susp}{An optional vector of suspended (right censored) (life-)time observations.}
   \item{interval}{reserved argument for interval censored (life-)time observations - NOT YET IMPLEMENTED.}
   \item{ppos}{A string defining a probability plotting position method.  Implemented options include \code{"Benard"} (as default), \code{"beta"} for the incomplete beta function, \code{"mean"} also known as Herd-Johnson, \code{"Kaplan-Meier"} with modification for final complete failure,  \code{"Hazen"} or \emph{modified} Kaplan-Meier, and \code{"Blom"}.}
@@ -45,9 +45,10 @@ susp           <- c(100,45,10)
 plot_positions <- getPPP(fail, susp)
 median_ranks   <- plot_positions['ppp']
 
-median_ranks2 <- getPPP(fail, susp)['ppp']
-    # median ranks based on just an event vector
-
+# median ranks based on just an event vector
+event<-c(1,0,1,1,0,0,1,1)
+pseudo_data <-data.frame(time=seq(1:length(event)), event)
+median_ranks2 <- getPPP(pseudo_data)['ppp']
 }
 
 \keyword{ regression reliability median ranks }

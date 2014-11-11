@@ -10,12 +10,18 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 	## as a vector, x represents fixed time failure data. 
 	## Alternate acceptance will be made for a dataframe with time and event columns (an "event_frame").
 	if(is.vector(x))  {
-	## should test here to stop if this is obviously an event vector
+	## should test here to stop and alert if this is obviously an event vector
         ev_info <- levels(factor(x))
         if(identical(ev_info,c("0","1")) || identical(ev_info,"1")){
             # we can assume that x is holding event indicators	
 			stop("getPPP takes a fixed-time data vector, or a time-event dataframe")
-			}	
+		}	
+		if(anyNA(x))  {		
+			stop("NA not permitted in failure data")		
+		}		
+		if(any(x<=0))  {		
+			stop("non-positive values not permitted in failure data")		
+		}
 	fail  <-  length(x)
 	n  <-  fail+length(susp)
 
@@ -39,16 +45,42 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 		    prep_df<-data.frame(data=data,event=event)
         }
 	  }else{						
-		## x argument might alternatively be an event frame already
-## code to be developed ----------------------------------------------
-##        ev_info <- levels(factor(x))
-##        if(identical(ev_info,c("0","1")) || identical(ev_info,"1")){
-            # we can assume that x is holding event indicators
-##            event <- x
-##            data <- 1:length(x)
-##            prep_df<-data.frame(data=data,event=event)
-##		}
-}			
+	## here a time-event dataframe can be evaluated, if provided as x				
+	## This is the support for a time-event dataframe 
+		if (class(x) == "data.frame") {
+			test_names <- names(x)
+			if (test_names[1] != "time") {
+				colname_error <- TRUE
+			}
+			if (test_names[2] != "event") {
+				colname_error <- TRUE
+			}
+			if (colname_error == TRUE) {
+				stop("column name error in event dataframe object")
+			}
+
+	## verify positive time values
+			if (anyNA(x$time)) {
+				stop("NA in failure or suspension data")
+			}
+			if (any(x$time<= 0)) {
+				stop("non-positive values in failure or suspension data")
+			}
+	## verify 1's and 0's only in event
+	## using Jurgen's validation code
+			ev_info <- levels(factor(x$event))
+			if(identical(ev_info,c("0","1")) || identical(ev_info,"1")){
+	# okay x is holding event indicators
+			}else{
+			stop("event column not '1' or '0' ")
+			}
+			if(length(susp)>0)  {
+			warning("argument 'susp' ignored when time-event dataframe provided")
+			}
+	## assure that input time-event frame has been sorted (how would we know for sure?)
+			x<-x[order(x$time),]
+			prep_df<-data.frame(data=x$time, event=x$event)
+	}			
 							
 	if(tolower(aranks)=="johnson")  {						
 		## adjust ranks using Drew Auth's simplification of Leonard Johnson's method					

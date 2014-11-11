@@ -1,6 +1,6 @@
 Package: abremPivotals
 Title:  Linear Rank Regression Models with Pivotal Monte Carlo Methods for Reliability Analysis
-Version: 0.2.10.1
+Version: 0.2.10.2
 Date: 2014-10-31
 Author: Jacob T. Ormerod
 Maintainer: Jacob T. Ormerod <jake@openreliability.org>
