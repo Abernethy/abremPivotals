@@ -4,14 +4,25 @@
  ##   (c)2014 OpenReliability.org
 ##
 
-getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL, na.rm=TRUE)  {
+getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson", ties=NULL)  {
     # Jurgen, October 11 2014: I added ra.rm argument
+	## Jacob, November 10 2014: Removed ra.rm
+	## as a vector, x represents fixed time failure data. 
+	## Alternate acceptance will be made for a dataframe with time and event columns (an "event_frame").
+	if(is.vector(x))  {
+	## should test here to stop if this is obviously an event vector
+        ev_info <- levels(factor(x))
+        if(identical(ev_info,c("0","1")) || identical(ev_info,"1")){
+            # we can assume that x is holding event indicators	
+			stop("getPPP takes a fixed-time data vector, or a time-event dataframe")
+			}	
 	fail  <-  length(x)
 	n  <-  fail+length(susp)
 
 
 	##  create the event vector
 	if(!missing(susp)) {
+	## length test is used for debugging function code as a script	
 	## if(length(susp)>0)  {
 		## suspension data has been provided					
 		    data<-c(x,susp)
@@ -20,22 +31,24 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 		## now sort the dataframe on data values					
 		    NDX<-order(prep_df[,1])					
 		    prep_df<-prep_df[NDX,]					
-	  }else{						
-		## this is simply a complete failure set
-        # or ...
-        ev_info <- levels(factor(x))
-        if(identical(ev_info,c("0","1")) || identical(ev_info,"1")){
-            # we can assume that x is holding event indicators
-            event <- x
-            data <- 1:length(x)
-            prep_df<-data.frame(data=data,event=event)
+
         }else{
             ## this is simply a complete failure set
 		    data<-sort(x)					
 		    event<-rep(1,fail)					
 		    prep_df<-data.frame(data=data,event=event)
         }
-	  }						
+	  }else{						
+		## x argument might alternatively be an event frame already
+## code to be developed ----------------------------------------------
+##        ev_info <- levels(factor(x))
+##        if(identical(ev_info,c("0","1")) || identical(ev_info,"1")){
+            # we can assume that x is holding event indicators
+##            event <- x
+##            data <- 1:length(x)
+##            prep_df<-data.frame(data=data,event=event)
+##		}
+}			
 							
 	if(tolower(aranks)=="johnson")  {						
 		## adjust ranks using Drew Auth's simplification of Leonard Johnson's method					
@@ -51,12 +64,15 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 			}				
 		}					
 		prep_df<-cbind(prep_df,adj_rank=adj_rank[-1])
-        if(na.rm){
+##        if(na.rm){
+## this line eliminates the suspension data that is not used by lslr
             prep_df<-prep_df[sapply(prep_df$event, function(x) x>0),c(1,3)]
-        }else{
+## abrem may have sent an event frame, in which case it can fill a time column (with NA's if it likes) 
+## at suspension positions after receiving the ppp values for the fixed time failure entries.
+##        }else{
             # package abrem needs all data
-            prep_df[prep_df[,'event']==0,3] <- NA
-        }
+##            prep_df[prep_df[,'event']==0,3] <- NA
+##        }
 
 	}else{						
 		if(tolower(aranks)=="kmestimator")  {					
@@ -74,19 +90,19 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 			}
             prep_df<-cbind(prep_df,adj_rank=adj_rank[-1])
             ## now eliminate the suspension data
-            if(na.rm){
+##           if(na.rm){
                 prep_df<-prep_df[sapply(prep_df$event, function(x) x>0),c(1,3)]
-            }else{
+##            }else{
                 # package abrem needs all data
-                prep_df[prep_df[,'event']==0,3] <- NA
-            }
+##                prep_df[prep_df[,'event']==0,3] <- NA
+##            }
 
             ## Now provide a modification for the final element if it was a failure
 			## This adjustment is used by Minitab
 			if(prep_df$adj_rank[fail]==1)  {				
 				prep_df$adj_rank[fail]=1-((1-prep_df$adj_rank[fail-1])*1/10)			
 			}				
-			## Finally reverse the Kaplan-Meier plotting position to reveal useable
+			## Finally reverse the Kaplan-Meier plotting position to reveal usable
 			## adj_rank	for any plotting position method.			
 			prep_df$adj_rank<-prep_df$adj_rank*n
 		}else{	
@@ -95,7 +111,8 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 	}						
 							
 	## now to handle ties, if called for						
-	if(!missing(ties))  {						
+	if(!missing(ties))  {
+	## length test is used for debugging function code as a script	
 	## if(length(ties)>0) {						
 		test_hi<-prep_df$data-c(prep_df$data[-1],0)					
 		test_lo<-prep_df$data-c(1,prep_df$data[1:(fail-1)])					
@@ -122,7 +139,7 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 	}						
 							
 	## special note:  the number of data entries n remains as originally identified						
-	## if CANNOT be changed due to removal of suspensions or ties						
+	## it CANNOT be changed due to removal of suspensions or ties						
 							
 	## prep_df now contains the data to be plotted with their final adjusted ranks						
 	## finally we get the probability plotting positions						
@@ -168,19 +185,19 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 			stop("ppos argument not recognized")
 		}		
 	}						
-	if(na.rm){
+##	if(na.rm){
     	outDF <- cbind(prep_df$data,data.frame(ppp),prep_df$adj_rank)
     	colnames(outDF) <- c("time","ppp","adj_rank")
-    }else{
-    	outDF <- cbind(prep_df$data,data.frame(ppp),prep_df$adj_rank,prep_df$event)
-    	colnames(outDF) <- c("time","ppp","adj_rank","event")
+##    }else{
+##    	outDF <- cbind(prep_df$data,data.frame(ppp),prep_df$adj_rank,prep_df$event)
+##    	colnames(outDF) <- c("time","ppp","adj_rank","event")
         # Jurgen, October 7, 2014: including the event vector is only possible (I believe)
         # as long as we are not playing around with interval censored data, Jacob-style.
         # Check with Jacob to be sure.
         # For now, it is needed for abrem:::calculateSingleConf to calculate the confidence bounds
         # (abrem 0.2.9)
         # TODO (Jurgen 9/10/2014): the if(na.rm) code seems convoluted, can be written shorter
-    }
+##    }
 return(outDF)							
 }							
 ## assign the alias							

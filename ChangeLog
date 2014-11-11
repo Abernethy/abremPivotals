@@ -1,3 +1,10 @@
+2014-11-10 Jacob Ormerod <jake@openreliability.org>
+		Am attempting to implement a test branch in which reconciliation will be attempted with abrem.  This package branch is intended 
+		to be used with functions built in abremTest to demonstrate interactions in functions related to original abrem functions.
+		The first of these test pairs will be a restoration of getPPP to its original intended form (with some new argument labels).
+		The abremTest function to first be attempted will be linear_event_frame a replacement for params.to.ob (Not linearPPP, since the 
+		output of params.to.ob would not be suitable for sending to lslr directly.)
+
 2014-10-11 Jurgen Symynck <jusy@openreliability.org>
 		Started implementing changes on naming conventions (susp vs. s) and capitalization of function arguments. Started tweaking the manuals by adding \code{} and \emph{} where applicable. This effort is still ongoing and has not been conducted codewide. 
 		* getPPP (getPercentilePlottingPositions.r): Made getPPP the primary function and getPercentilePlottingPositions the secondary, to
