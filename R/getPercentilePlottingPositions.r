@@ -80,7 +80,8 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 	## assure that input time-event frame has been sorted (how would we know for sure?)
 			x<-x[order(x$time),]
 			prep_df<-data.frame(data=x$time, event=x$event)
-	}			
+		}
+	}	
 							
 	if(tolower(aranks)=="johnson")  {						
 		## adjust ranks using Drew Auth's simplification of Leonard Johnson's method					
@@ -231,6 +232,6 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
         # TODO (Jurgen 9/10/2014): the if(na.rm) code seems convoluted, can be written shorter
 ##    }
 return(outDF)							
-}							
+}						
 ## assign the alias							
 getPercentilePlottingPositions <-getPPP
