@@ -49,13 +49,7 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 	## This is the support for a time-event dataframe 
 		if (class(x) == "data.frame") {
 			test_names <- names(x)
-			if (test_names[1] != "time") {
-				colname_error <- TRUE
-			}
-			if (test_names[2] != "event") {
-				colname_error <- TRUE
-			}
-			if (colname_error == TRUE) {
+			if (test_names[1] != "time" && test_names[2] != "event") {
 				stop("column name error in event dataframe object")
 			}
 
@@ -77,6 +71,7 @@ getPPP <- function(x, susp=NULL, interval=NULL, ppos="Benard", aranks="Johnson",
 			if(length(susp)>0)  {
 			warning("argument 'susp' ignored when time-event dataframe provided")
 			}
+			n<-length(x$event)
 	## assure that input time-event frame has been sorted (how would we know for sure?)
 			x<-x[order(x$time),]
 			prep_df<-data.frame(data=x$time, event=x$event)
