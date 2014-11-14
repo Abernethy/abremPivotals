@@ -1,3 +1,8 @@
+2014-11-13 Jacob Ormerod <jake@openreliability.org>
+		Second test branch made to preserve working pair of abrem and abremPivotals as dev-test.
+		dev-test2 will develop abremPivotals 0.2.10.3 in this revision support for NA entry in primary
+		call argument to lslr will be removed, corresponding changes will be made in abrem calling functions.
+		Look for dev-test2 branch in package abrem.
 2014-11-10 Jacob Ormerod <jake@openreliability.org>
 		Am attempting to implement a test branch in which reconciliation will be attempted with abrem.  This package branch is intended 
 		to be used with functions built in abremTest to demonstrate interactions in functions related to original abrem functions.
